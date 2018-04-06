@@ -85,7 +85,7 @@ class Player
                     }
                     else
                     {
-                        enemyHeros.Add(eHero.heroType, new Hero() {Current = eHero});
+                        enemyHeros.Add(eHero.heroType, new Hero() { Current = eHero });
                     }
                 }
 
@@ -94,12 +94,13 @@ class Player
                     var util = new Util();
                     util.UpdateWithRoundInfo(bushes, hero.Name, entities, myTeam, shop, gold, hero);
 
-                    if (hero.Current != null)
+                    if (util.myCurrentHero != null)
                     {
+                        Console.Error.WriteLine("Inside here?123");
                         HeroCommands(util, enemyHeros);
                     }
 
-                    hero.Previous = hero.Current;
+                    hero.Previous = util.myCurrentHero;
                 }
             }
 
@@ -133,7 +134,7 @@ class Player
             var bush = util.FindNearestBushToMyTower();
             Console.WriteLine("MOVE " + bush.x + " " + bush.y);
         }
-        else if (((double) myCurrentHero.health / myCurrentHero.maxHealth) < 0.33)
+        else if (((double)myCurrentHero.health / myCurrentHero.maxHealth) < 0.33)
         {
             var bush = util.FindNearestBushToMyTower();
             if (myCurrentHero.x == bush.x && myCurrentHero.y == bush.y)
@@ -226,13 +227,13 @@ class Player
             List<Item> shop, int gold, Hero hero)
         {
             this.bushes = bushes;
-            this.myCurrentHero = FindMyHero(heroName);
             this.entities = entities;
             this.myTeam = myTeam;
             this.shop = shop;
             this.gold = gold;
             this.myPreviousHero = hero.Previous;
             this.Hero = hero;
+            this.myCurrentHero = FindMyHero(heroName);
         }
 
 
@@ -384,6 +385,7 @@ class Player
 
         public void FindNonHerosToAttack()
         {
+            Console.Error.WriteLine("Inside here?");
             var target = FindLowestHealthEnemyWithinRangeOfHero() ?? FindLowestHealthAllyWithinRangeOfHero();
             if (target != null)
             {
@@ -401,7 +403,7 @@ class Player
                     var bush = FindNearestBushToMyTower();
                     Console.WriteLine("MOVE " + bush.x + " " + bush.y);
                 }
-                
+
             }
         }
 
@@ -524,7 +526,7 @@ class Player
 
         public double GoldPerDamageRating
         {
-            get { return itemCost / (double) damage; }
+            get { return itemCost / (double)damage; }
         }
     }
 
