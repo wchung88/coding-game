@@ -1,10 +1,10 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 
 class Player
 {
-    static void Main_Old(string[] args)
+    static void Main(string[] args)
     {
         string[] inputs;
         int myTeam = int.Parse(Console.ReadLine());
